@@ -493,7 +493,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_01_voltage:
+    battery_2_cell_1_voltage:
         register: 34118
         scale: 0.001
         unit: V
@@ -503,7 +503,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_02_voltage:
+    battery_2_cell_2_voltage:
         register: 34119
         scale: 0.001
         unit: V
@@ -513,7 +513,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_03_voltage:
+    battery_2_cell_3_voltage:
         register: 34120
         scale: 0.001
         unit: V
@@ -523,7 +523,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_04_voltage:
+    battery_2_cell_4_voltage:
         register: 34121
         scale: 0.001
         unit: V
@@ -533,7 +533,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_05_voltage:
+    battery_2_cell_5_voltage:
         register: 34122
         scale: 0.001
         unit: V
@@ -543,7 +543,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_06_voltage:
+    battery_2_cell_6_voltage:
         register: 34123
         scale: 0.001
         unit: V
@@ -553,7 +553,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_07_voltage:
+    battery_2_cell_7_voltage:
         register: 34124
         scale: 0.001
         unit: V
@@ -563,7 +563,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_08_voltage:
+    battery_2_cell_8_voltage:
         register: 34125
         scale: 0.001
         unit: V
@@ -573,7 +573,7 @@ SENSOR_DEFINITIONS:
         data_type: int16
         precision: 3
         scan_interval: medium
-    battery_2_cell_09_voltage:
+    battery_2_cell_9_voltage:
         register: 34126
         scale: 0.001
         unit: V

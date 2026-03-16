@@ -87,25 +87,25 @@
         "name": "MAC-Adresse"
       },
       "battery_soc": {
-        "name": "SoC alle Batterien"
+        "name": "SoC Batterie"
       },
       "battery_soc_1": {
-        "name": "SoC Batterie 1"
+        "name": "SoC Batteriepack 1"
       },
       "battery_soc_2": {
-        "name": "SoC Batterie 2"
+        "name": "SoC Batteriepack 2"
       },
       "battery_soc_3": {
-        "name": "SoC Batterie 3"
+        "name": "SoC Batteriepack 3"
       },
       "battery_soc_4": {
-        "name": "SoC Batterie 4"
+        "name": "SoC Batteriepack 4"
       },
       "battery_soc_5": {
-        "name": "SoC Batterie 5"
+        "name": "SoC Batteriepack 5"
       },
       "battery_soc_6": {
-        "name": "SoC Batterie 6"
+        "name": "SoC Batteriepack 6"
       },
       "battery_total_energy": {
         "name": "Batterie-Gesamtenergie"
@@ -621,8 +621,7 @@
       },
       "schedule_1_enabled": {
         "name": "Zeitplan 1 aktivieren"
-      }
-      ,
+      },
       "schedule_2_enabled": {
         "name": "Zeitplan 2 aktivieren"
       },

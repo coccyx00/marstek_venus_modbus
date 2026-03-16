@@ -51,7 +51,7 @@ async def async_setup_entry(
             _LOGGER.error("SELECT_DEFINITIONS ist leer oder unbekannter Typ: %r", type(sel_defs))
             sel_defs = []
     except Exception as err:
-        _LOGGER.exception("Fehler beim Normalisieren von SELECT_DEFINITIONS: %s", err)
+        _LOGGER.exception("Error normalising SELECT_DEFINITIONS: %s", err)
         sel_defs = []
 
     entities: list[MarstekSelect] = []
@@ -59,16 +59,16 @@ async def async_setup_entry(
         try:
             entities.append(MarstekSelect(coordinator, definition))
         except Exception as err:
-            _LOGGER.exception("Fehler beim Erstellen einer Select-Entity aus %r: %s", definition, err)
+            _LOGGER.exception("Error creating a select entity from %r: %s", definition, err)
 
     _LOGGER.debug(
-        "Richte %d Select-Entities ein: %s",
+        "Set up %d Select Entities: %s",
         len(entities),
         [getattr(e, "_key", "?") for e in entities],
     )
 
     if entities:
-        # update_before_add: sorgt für schnelleren ersten Status
+        # Update_before_add: ensures faster first Status
         async_add_entities(entities, update_before_add=True)
 
 
@@ -96,7 +96,7 @@ class MarstekSelect(CoordinatorEntity, SelectEntity):
         self._key = definition["key"]
         self.definition = definition
 
-        # Defensive: Stelle sicher, dass die Map im Coordinator existiert
+        # Defensive: Make sure the map exists in the coordinator
         if not hasattr(self.coordinator, "_entity_types") or self.coordinator._entity_types is None:
             self.coordinator._entity_types = {}
         # Assign the entity type to the coordinator mapping
