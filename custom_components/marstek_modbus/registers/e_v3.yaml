@@ -70,6 +70,7 @@ SENSOR_DEFINITIONS:
         register: 30304
         count: 6
         unit: null
+        category: diagnostic
         enabled_by_default: true
         icon: "mdi:ethernet"
         data_type: char
