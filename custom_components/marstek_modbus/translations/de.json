@@ -39,7 +39,8 @@
         "description": "Wählen Sie, welche Einstellungen Sie konfigurieren möchten",
         "menu_options": {
           "connection": "Verbindungseinstellungen",
-          "polling": "Polling-Intervalle"
+          "polling": "Polling-Intervalle",
+          "offsets": "Offset-Werte"
         }
       },
       "polling": {
@@ -50,6 +51,14 @@
           "medium": "Medium-Priorität Intervall (s)",
           "low": "Low-Priorität Intervall (s)",
           "very_low": "Very-low-Priorität Intervall (s)"
+        }
+      },
+      "offsets": {
+        "title": "Offset-Werte konfigurieren",
+        "description": "Offset-Werte für Energie-Sensoren anpassen",
+        "data": {
+          "total_charging_energy": "Gesamte Ladeenergie (kWh)",
+          "total_discharging_energy": "Gesamte Entladeenergie (kWh)"
         }
       },
       "connection": {

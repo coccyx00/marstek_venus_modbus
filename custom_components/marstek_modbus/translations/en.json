@@ -39,7 +39,8 @@
         "description": "Choose which settings to configure",
         "menu_options": {
           "connection": "Connection settings",
-          "polling": "Polling intervals"
+          "polling": "Polling intervals",
+          "offsets": "Energy sensor offsets"
         }
       },
       "polling": {
@@ -50,6 +51,14 @@
           "medium": "Medium priority interval (s)",
           "low": "Low priority interval (s)",
           "very_low": "Very low priority interval (s)"
+        }
+      },
+      "offsets": {
+        "title": "Configure offset values",
+        "description": "Adjust offset values for energy sensors",
+        "data": {
+          "total_charging_energy": "Total Charging Energy (kWh)",
+          "total_discharging_energy": "Total Discharging Energy (kWh)"
         }
       },
       "connection": {
