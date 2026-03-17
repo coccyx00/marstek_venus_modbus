@@ -39,7 +39,8 @@
         "description": "Kies welke instellingen te configureren",
         "menu_options": {
           "connection": "Verbindingsgegevens",
-          "polling": "Polling-intervallen"
+          "polling": "Polling-intervallen",
+          "offsets": "Offset-waarden"
         }
       },
       "polling": {
@@ -56,6 +57,14 @@
           "medium": "Interval voor sensoren met gemiddelde prioriteit",
           "low": "Interval voor sensoren met lage prioriteit",
           "very_low": "Interval voor sensoren met zeer lage prioriteit"
+        }
+      },
+      "offsets": {
+        "title": "Offset-waarden configureren",
+        "description": "Offset-waarden voor energie-sensoren aanpassen",
+        "data": {
+          "total_charging_energy": "Totale Oplaadenergie (kWh)",
+          "total_discharging_energy": "Totale Ontlaadenergie (kWh)"
         }
       },
       "connection": {

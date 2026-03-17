@@ -1,4 +1,5 @@
 """Config flow for Marstek Venus Modbus integration."""
+
 import asyncio
 import logging
 import socket
@@ -11,6 +12,7 @@ from homeassistant.helpers.translation import async_get_translations
 from .const import (
     DEFAULT_PORT,
     DEFAULT_SCAN_INTERVALS,
+    DEFAULT_OFFSETS,
     DEFAULT_UNIT_ID,
     DOMAIN,
     SUPPORTED_VERSIONS,
@@ -41,6 +43,14 @@ SCHEMA_POLLING = vol.Schema(
     }
 )
 
+# Schema for offset values
+SCHEMA_OFFSETS = vol.Schema(
+    {
+        vol.Required("total_discharging_energy"): vol.All(vol.Coerce(float)),
+        vol.Required("total_charging_energy"): vol.All(vol.Coerce(float)),
+    }
+)
+
 
 class MarstekConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle the configuration flow for the Marstek Venus Modbus integration."""
@@ -59,18 +69,13 @@ class MarstekConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         # Load translations for localized messages
         translations = await async_get_translations(
-            self.hass,
-            language,
-            category="config",
-            integrations=[DOMAIN]
+            self.hass, language, category="config", integrations=[DOMAIN]
         )
 
         if user_input is not None:
             host = user_input.get(CONF_HOST)
             port = user_input.get(CONF_PORT, DEFAULT_PORT)
-            device_version = user_input.get(
-                CONF_DEVICE_VERSION, SUPPORTED_VERSIONS[0]
-            )
+            device_version = user_input.get(CONF_DEVICE_VERSION, SUPPORTED_VERSIONS[0])
             unit_id = user_input.get(CONF_UNIT_ID, DEFAULT_UNIT_ID)
 
             # Validate port and unit_id ranges
@@ -95,7 +100,7 @@ class MarstekConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # Validate the host by resolving it to an IP address
             try:
                 socket.gethostbyname(host)
-            except (socket.gaierror, TypeError):
+            except socket.gaierror, TypeError:
                 errors["base"] = "invalid_host"
             else:
                 # Prevent duplicate entries for same host, port and unit_id
@@ -108,9 +113,7 @@ class MarstekConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                         return self.async_abort(reason="already_configured")
 
                 # Test Modbus connection including unit_id validation
-                errors["base"] = await async_test_modbus_connection(
-                    host, port, unit_id
-                )
+                errors["base"] = await async_test_modbus_connection(host, port, unit_id)
 
                 # Create configuration entry if no errors
                 if not errors["base"]:
@@ -146,7 +149,7 @@ class MarstekConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors,
             description_placeholders=description_placeholders,
         )
-    
+
     async def async_step_reauth(self, data=None):
         """Re-authentication step for missing device_version."""
         errors = {}
@@ -168,9 +171,7 @@ class MarstekConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                     await self.hass.config_entries.async_update_entry(
                         entry, data=new_data
                     )
-                    return self.async_create_entry(
-                        title=entry.title or DOMAIN, data={}
-                    )
+                    return self.async_create_entry(title=entry.title or DOMAIN, data={})
                 except Exception as exc:
                     _LOGGER.error(
                         "Failed to update config entry during reauth: %s", exc
@@ -218,7 +219,7 @@ class MarstekOptionsFlow(config_entries.OptionsFlow):
         """Show the options menu."""
         return self.async_show_menu(
             step_id="menu",
-            menu_options=["connection", "polling"],
+            menu_options=["connection", "polling", "offsets"],
         )
 
     async def async_step_polling(self, user_input=None):
@@ -250,11 +251,38 @@ class MarstekOptionsFlow(config_entries.OptionsFlow):
 
         return self.async_show_form(
             step_id="polling",
-            data_schema=self.add_suggested_values_to_schema(
-                SCHEMA_POLLING, defaults
-            ),
+            data_schema=self.add_suggested_values_to_schema(SCHEMA_POLLING, defaults),
             errors=errors,
             description_placeholders={"lowest": str(lowest)},
+            last_step=True,
+        )
+
+    async def async_step_offsets(self, user_input=None):
+        """Configure offset values ."""
+        errors = {}
+        config = self._config_entry
+
+        # Get defaults from options, then data, then constants
+        defaults = {
+            key: config.options.get(key, config.data.get(key, DEFAULT_OFFSETS[key]))
+            for key in DEFAULT_OFFSETS
+        }
+
+        if user_input is not None:
+            coordinator = self.hass.data.get(DOMAIN, {}).get(config.entry_id)
+            if coordinator:
+                coordinator._update_offsets(user_input)
+
+            # Save and return to menu
+            self.hass.config_entries.async_update_entry(
+                config, options={**config.options, **user_input}
+            )
+            return await self.async_step_menu()
+
+        return self.async_show_form(
+            step_id="offsets",
+            data_schema=self.add_suggested_values_to_schema(SCHEMA_OFFSETS, defaults),
+            errors=errors,
             last_step=True,
         )
 
@@ -306,9 +334,7 @@ class MarstekOptionsFlow(config_entries.OptionsFlow):
                     )
                     connected = await test_client.async_connect()
                 except Exception as exc:
-                    _LOGGER.debug(
-                        "Error while testing new Modbus connection: %s", exc
-                    )
+                    _LOGGER.debug("Error while testing new Modbus connection: %s", exc)
                     connected = False
 
                 if not connected:
@@ -358,9 +384,7 @@ class MarstekOptionsFlow(config_entries.OptionsFlow):
 
         return self.async_show_form(
             step_id="connection",
-            data_schema=self.add_suggested_values_to_schema(
-                SCHEMA_HOST_BASE, defaults
-            ),
+            data_schema=self.add_suggested_values_to_schema(SCHEMA_HOST_BASE, defaults),
             errors=errors,
             last_step=True,
         )
