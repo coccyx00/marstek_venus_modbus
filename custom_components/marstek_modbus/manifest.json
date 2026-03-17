@@ -1,6 +1,6 @@
 {
   "domain": "marstek_modbus",
-  "name": "Marstek Venus Modbus",
+  "name": "Marstek Venus Modbus ⑂",
   "version": "2026.3.3",
   "config_flow": true,
   "documentation": "https://github.com/viperrnmc/marstek_venus_modbus",
