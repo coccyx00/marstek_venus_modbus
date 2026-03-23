@@ -149,6 +149,12 @@
       "total_discharging_energy": {
         "name": "Total Discharging Energy"
       },
+      "battery_cycle_count": {
+        "name": "Cycle Count"
+      },
+      "battery_cycle_count_calc": {
+        "name": "Cycle Count (Calc)"
+      },
       "total_daily_charging_energy": {
         "name": "Daily Charging Energy"
       },

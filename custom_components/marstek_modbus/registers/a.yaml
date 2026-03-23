@@ -279,6 +279,17 @@ SENSOR_DEFINITIONS:
         data_type: int32
         precision: 2
         scan_interval: low
+    battery_cycle_count:
+        register: 34003
+        scale: 1
+        unit: cycles
+        icon: "mdi:counter"
+        state_class: total_increasing
+        category: diagnostic
+        enabled_by_default: true
+        data_type: uint16
+        precision: 0
+        scan_interval: low
     total_daily_charging_energy:
         register: 33004
         count: 2
@@ -1831,4 +1842,15 @@ STORED_ENERGY_SENSOR_DEFINITIONS:
         state_class: total
         dependency_keys:
             soc: battery_soc
+            capacity: battery_total_energy
+
+CYCLE_SENSOR_DEFINITIONS:
+    battery_cycle_count_calc:
+        key: battery_cycle_count_calc
+        unit: cycles
+        icon: "mdi:counter"
+        category: diagnostic
+        state_class: measurement
+        dependency_keys:
+            discharge: total_discharging_energy
             capacity: battery_total_energy

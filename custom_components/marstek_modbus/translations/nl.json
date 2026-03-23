@@ -155,6 +155,12 @@
       "total_discharging_energy": {
         "name": "Totale Ontlaadenergie"
       },
+      "battery_cycle_count": {
+        "name": "Cycli"
+      },
+      "battery_cycle_count_calc": {
+        "name": "Cycli (Calc)"
+      },
       "total_daily_charging_energy": {
         "name": "Dagelijkse Oplaadenergie"
       },
