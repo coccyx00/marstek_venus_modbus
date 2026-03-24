@@ -3,7 +3,7 @@ DOMAIN = "marstek_modbus"
 
 # Manufacturer and model information for the Marstek Venus battery
 MANUFACTURER = "Marstek"
-MODEL = "Venus E"
+MODEL = "Venus"
 
 # Default network configuration for Modbus connection
 DEFAULT_PORT = 502
@@ -26,5 +26,5 @@ DEFAULT_OFFSETS = {
 # Supported device versions
 SUPPORTED_VERSIONS = ["E v1/v2", "E v3", "D", "A"]
 
-# Note: register loading logic (get_registers_for_version) was moved to
-# `register_loader.py` to keep `const.py` focused on constants only.
+# Note: register loading logic (get_registers) was moved to
+# `coordinator.py` to keep `const.py` focused on constants only.
